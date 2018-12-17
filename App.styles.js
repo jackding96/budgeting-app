@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import SYSTEM_COLORS from './colors.styles.js';
 
 export default StyleSheet.create({
   container: {
@@ -13,18 +14,45 @@ export default StyleSheet.create({
   },
   secondaryText: {
     fontSize: 20,
-    opacity: 0.6,
-    fontWeight: "600"
+    fontWeight: "bold",
+    color: SYSTEM_COLORS.green
   },
   header: {
     paddingLeft: 20,
-    marginTop: 20,
-    backgroundColor: 'pink',
+    marginTop: 30,
+    marginBottom: 20,
   },
   list: {
-
+    paddingLeft: 40,
   },
   listItem: {
-    backgroundColor: 'blue'
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  listIcon: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    backgroundColor: SYSTEM_COLORS.pink,
+  },
+  listTextMain: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    opacity: 0.9,
+    fontFamily: 'System',
+  },
+  listLineSecondary: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  listTextSecondary: {
+    fontSize: 15,
+    opacity: 0.9,
+    fontFamily: 'System',
+  },
+  listTextBig: {
+    fontSize: 20,
+    opacity: 0.9,
+    fontFamily: 'System', 
   }
 });
