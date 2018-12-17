@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import styles from './App.styles.js';
+import styles from './LineItem.styles.js';
 
-export default class App extends React.Component {
+export default class LineItem extends React.Component {
   render() {
     return (
       <View style={styles.list}>
