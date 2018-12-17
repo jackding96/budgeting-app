@@ -2,36 +2,57 @@ import { StyleSheet } from 'react-native';
 import SYSTEM_COLORS from './colors.styles.js';
 
 export default StyleSheet.create({
-  list: {
-  },
   listItem: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
   },
-  listIcon: {
-    height: 16,
-    width: 16,
-    borderRadius: 8,
+  listItemLeftContainer: {
+    marginRight: 15,
+  },
+  listItemRightContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
+  listItemIcon: {
+    height: 10,
+    width: 10,
+    borderRadius: 5,
     backgroundColor: SYSTEM_COLORS.yellow,
   },
-  listTextMain: {
-    fontSize: 20,
+  listItemCategoryText: {
+    fontSize: 17,
     fontWeight: 'bold',
-    opacity: 0.9,
     fontFamily: 'System',
+    opacity: 0.9
+  },
+  listItemMainDetails: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },  
+  listItemSecondaryDetails: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   listLineSecondary: {
     display: 'flex',
     flexDirection: 'row',
   },
-  listTextSecondary: {
-    fontSize: 15,
-    opacity: 0.9,
-    fontFamily: 'System',
-  },
-  listTextBig: {
-    fontSize: 20,
-    opacity: 0.9,
+  listItemCostText: {
+    fontSize: 17,
     fontFamily: 'System', 
+    opacity: 0.9
+  },
+  listItemStoreText: {
+    fontFamily: 'System',
+    // opacity: 0.8,
+    // fontWeight: 'bold'
+  },
+  listItemTimeText: {
+    fontFamily: 'System',
+    // opacity: 0.8,
   }
 });

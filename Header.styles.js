@@ -3,7 +3,7 @@ import SYSTEM_COLORS from './colors.styles.js';
 
 export default StyleSheet.create({
   mainText: {
-    fontSize: 20,
+    fontSize: 17,
     marginBottom: 4,
     fontFamily: 'System',
     fontWeight: "bold",
@@ -16,11 +16,7 @@ export default StyleSheet.create({
   header: {
     paddingBottom: 10,
     marginTop: 30,
-    marginBottom: 20,
-    display: 'flex',
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
+    marginBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: SYSTEM_COLORS.extralightgray
   }
