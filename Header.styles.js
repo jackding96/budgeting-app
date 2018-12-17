@@ -14,9 +14,9 @@ export default StyleSheet.create({
     color: SYSTEM_COLORS.green
   },
   header: {
-    paddingBottom: 10,
+    paddingBottom: 12,
     marginTop: 30,
-    marginBottom: 10,
+    marginBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: SYSTEM_COLORS.extralightgray
   }

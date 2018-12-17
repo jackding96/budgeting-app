@@ -11,12 +11,7 @@ export default class App extends React.Component {
       <ScrollView showsVerticalScrollIndicator='False'>
         <View style={styles.container}>
           <Header/>
-          <LineItem/>
-          <LineItem/>
-          <LineItem/>
-          <LineItem/>
-          <LineItem/>
-          <LineItem/>
+          
           <LineItem/>
         </View>
       </ScrollView>
