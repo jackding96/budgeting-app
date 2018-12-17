@@ -3,17 +3,16 @@ import SYSTEM_COLORS from './colors.styles.js';
 
 export default StyleSheet.create({
   list: {
-    paddingLeft: 40,
   },
   listItem: {
     display: 'flex',
     flexDirection: 'row',
   },
   listIcon: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    backgroundColor: SYSTEM_COLORS.pink,
+    height: 16,
+    width: 16,
+    borderRadius: 8,
+    backgroundColor: SYSTEM_COLORS.yellow,
   },
   listTextMain: {
     fontSize: 20,
