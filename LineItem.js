@@ -4,6 +4,9 @@ import styles from './LineItem.styles.js';
 
 export default class LineItem extends React.Component {
   render() {
+    let time = new Date(this.props.time);
+    time = `${time.getHours()}:${time.getMinutes()}`
+
     return (
       <View style={styles.listItem}>
 
@@ -13,13 +16,13 @@ export default class LineItem extends React.Component {
         
         <View style={styles.listItemRightContainer}>
           <View style={styles.listItemMainDetails}>
-            <Text style={styles.listItemCategoryText}>Food</Text>
-            <Text style={styles.listItemCostText}>$4.56</Text>
+            <Text style={styles.listItemCategoryText}>{this.props.category}</Text>
+            <Text style={styles.listItemCostText}>${this.props.cost}</Text>
           </View>
 
           <View style={styles.listItemSecondaryDetails}>
-            <View style={{marginRight: 5}}><Text style={styles.listItemStoreText}>7/11,</Text></View>
-            <View><Text style={styles.listItemTimeText}>3:27pm</Text></View>
+            <View><Text style={styles.listItemStoreText}>{this.props.store},</Text></View>
+            <View><Text style={styles.listItemTimeText}> {time}</Text></View>
           </View>          
         </View>
 

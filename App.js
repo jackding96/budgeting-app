@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, FlatList, Text, View } from 'react-native';
 
 import Header from './Header.js';
 import dummyData from './dummyData.js';
@@ -53,17 +53,25 @@ export default class App extends React.Component {
     newState.dayLineItems.data = data.filter(x => x.timestamp >= this.getStartOfDay());
     newState.weekLineItems.data = data.filter(x => x.timestamp >= this.getStartOfWeek());
     newState.monthLineItems.data = data.filter(x => x.timestamp >= this.getStartOfMonth());
-
-    // console.log(newState);
     this.setState({newState});
-    console.log(this.state);
   }
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator='False'>
         <View style={styles.container}>
           <Header/>
-          <LineItem/>
+          <FlatList
+            data={this.state.weekLineItems.data}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => 
+              <LineItem
+                category={item.category}
+                store={item.store}
+                cost={item.cost}
+                time={item.timestamp}
+              />
+            }
+          />
         </View>
       </ScrollView>
     );
