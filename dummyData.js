@@ -8,14 +8,20 @@ function randomDate(start, end, startHour, endHour) {
   var date = new Date(+start + Math.random() * (end - start));
   var hour = startHour + Math.random() * (endHour - startHour) | 0;
   date.setHours(hour);
-  return date;
+  return date.getTime();
 }
 
-var date1 = new Date('December 17, 1995 03:24:00');
+dict = {};
 
-for (let i = 0; i < 100; i++) {
-  categories[Math.floor(Math.random()*categories.length)]
-  stores[Math.floor(Math.random()*stores.length)]
-  console.log( (Math.random() * 20).toFixed(2) );
-  console.log(randomDate(new Date('September 1, 2018 00:00:00'), new Date('December 1, 2018 00:00:00'), 0, 23));
+for (let i = 0; i < 200; i++) {
+  id = '_' + Math.random().toString(36).substr(2, 9);
+  dict[id] = JSON.stringify({
+    id: id,
+    timestamp: randomDate(new Date('October 1, 2018 00:00:00'), new Date(), 0, 23),
+    category: categories[Math.floor(Math.random()*categories.length)],
+    store: stores[Math.floor(Math.random()*stores.length)], 
+    cost: (Math.random() * 20).toFixed(2)
+  });
 }
+
+export default dict;
