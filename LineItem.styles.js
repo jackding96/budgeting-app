@@ -7,6 +7,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,  
   },
   listItemLeftContainer: {
     marginRight: 15,

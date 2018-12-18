@@ -5,7 +5,6 @@ import styles from './LineItem.styles.js';
 export default class LineItem extends React.Component {
   constructor(props) {
     super(props);
-
     this.formatAMPM = this.formatAMPM.bind(this);
   }
 

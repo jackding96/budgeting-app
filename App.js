@@ -50,16 +50,23 @@ export default class App extends React.Component {
   componentWillMount() {
     const data = Object.values(dummyData).map(x => JSON.parse(x)).sort((a,b) => a.timestamp <= b.timestamp);
     const newState = {...this.state};
-    newState.dayLineItems.data = data.filter(x => x.timestamp >= this.getStartOfDay());
-    newState.weekLineItems.data = data.filter(x => x.timestamp >= this.getStartOfWeek());
-    newState.monthLineItems.data = data.filter(x => x.timestamp >= this.getStartOfMonth());
+
+    const dayTime = this.getStartOfDay();
+    const weekTime = this.getStartOfWeek();
+    const monthTime = this.getStartOfMonth();
+
+    newState.dayLineItems.data = data.filter(x => x.timestamp >= dayTime);
+    newState.weekLineItems.data = data.filter(x => x.timestamp >= weekTime && x.timestamp < dayTime);
+    newState.monthLineItems.data = data.filter(x => x.timestamp >= monthTime && x.timestamp < weekTime);
     this.setState({newState});
   }
   render() {
-    const total = this.state.weekLineItems.data.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2);
+    const total = this.state.dayLineItems.data.length == 0 ? 0 : this.state.dayLineItems.data.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2);
     return (
-      <ScrollView showsVerticalScrollIndicator='False'>
-        <View style={styles.container}>
+      <ScrollView 
+        showsVerticalScrollIndicator='False'
+      >
+        {/* <View style={styles.container}> */}
           <Header
             title={this.state.dayLineItems.header}
             total={total}
@@ -76,9 +83,9 @@ export default class App extends React.Component {
               />
             }
           />
-        </View>
+        {/* </View> */}
 
-        <View style={styles.container}>
+        {/* <View style={styles.container}> */}
           <Header
             title={this.state.weekLineItems.header}
           />
@@ -94,9 +101,9 @@ export default class App extends React.Component {
               />
             }
           />
-        </View>
+        {/* </View> */}
 
-        <View style={styles.container}>
+        {/* <View style={styles.container}> */}
           <Header
             title={this.state.monthLineItems.header}
           />
@@ -112,7 +119,7 @@ export default class App extends React.Component {
               />
             }
           />
-        </View>        
+        {/* </View>         */}
 
       </ScrollView>
     );
