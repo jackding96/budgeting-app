@@ -56,10 +56,32 @@ export default class App extends React.Component {
     this.setState({newState});
   }
   render() {
+    const total = this.state.weekLineItems.data.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2);
     return (
       <ScrollView showsVerticalScrollIndicator='False'>
         <View style={styles.container}>
-          <Header/>
+          <Header
+            title={this.state.dayLineItems.header}
+            total={total}
+          />
+          <FlatList
+            data={this.state.dayLineItems.data}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => 
+              <LineItem
+                category={item.category}
+                store={item.store}
+                cost={item.cost}
+                time={item.timestamp}
+              />
+            }
+          />
+        </View>
+
+        <View style={styles.container}>
+          <Header
+            title={this.state.weekLineItems.header}
+          />
           <FlatList
             data={this.state.weekLineItems.data}
             keyExtractor={(item) => item.id}
@@ -73,6 +95,25 @@ export default class App extends React.Component {
             }
           />
         </View>
+
+        <View style={styles.container}>
+          <Header
+            title={this.state.monthLineItems.header}
+          />
+          <FlatList
+            data={this.state.monthLineItems.data}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => 
+              <LineItem
+                category={item.category}
+                store={item.store}
+                cost={item.cost}
+                time={item.timestamp}
+              />
+            }
+          />
+        </View>        
+
       </ScrollView>
     );
   }

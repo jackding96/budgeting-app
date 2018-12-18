@@ -49,7 +49,6 @@ export default StyleSheet.create({
   listItemStoreText: {
     fontFamily: 'System',
     opacity: 0.8,
-    // fontWeight: 'bold'
   },
   listItemTimeText: {
     fontFamily: 'System',

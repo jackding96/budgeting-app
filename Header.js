@@ -6,8 +6,8 @@ export default class Header extends React.Component {
   render() {
     return (
       <View style={styles.header}>
-        <Text style={styles.mainText}>Today</Text>
-        <Text style={styles.secondaryText}>$26.32</Text>  
+        <Text style={styles.mainText}>{this.props.title}</Text>
+        <Text style={styles.secondaryText}>${this.props.total}</Text>  
       </View>             
     );
   }

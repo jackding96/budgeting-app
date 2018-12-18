@@ -3,6 +3,12 @@ import { Text, View } from 'react-native';
 import styles from './LineItem.styles.js';
 
 export default class LineItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.formatAMPM = this.formatAMPM.bind(this);
+  }
+
   formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -16,7 +22,7 @@ export default class LineItem extends React.Component {
 
   render() {
     let time = new Date(this.props.time);
-    time = formatAMPM(time);
+    time = this.formatAMPM(time);
 
     return (
       <View style={styles.listItem}>
