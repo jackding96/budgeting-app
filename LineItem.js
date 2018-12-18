@@ -3,9 +3,20 @@ import { Text, View } from 'react-native';
 import styles from './LineItem.styles.js';
 
 export default class LineItem extends React.Component {
+  formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
   render() {
     let time = new Date(this.props.time);
-    time = `${time.getHours()}:${time.getMinutes()}`
+    time = formatAMPM(time);
 
     return (
       <View style={styles.listItem}>
