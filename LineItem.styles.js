@@ -50,10 +50,12 @@ export default StyleSheet.create({
   },
   listItemStoreText: {
     fontFamily: 'System',
+    fontSize: 13,
     opacity: 0.8,
   },
   listItemTimeText: {
     fontFamily: 'System',
+    fontSize: 13,
     opacity: 0.8,
   }
 });

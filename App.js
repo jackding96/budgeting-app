@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Button, FlatList, Text, View } from 'react-native';
+import { ScrollView, SectionList, Button, FlatList, Text, View } from 'react-native';
 
 import Header from './Header.js';
 import dummyData from './dummyData.js';
@@ -63,26 +63,29 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <ScrollView 
-        showsVerticalScrollIndicator='False'>
-
-        {/* <Button
-          title="Learn More"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />         */}
-
-        <LineItemsSection
-          data = {this.state.dayLineItems}
-        />
-        <LineItemsSection
-          data = {this.state.weekLineItems}
-        />
-        <LineItemsSection
-          data = {this.state.monthLineItems}
-        />                    
-
-      </ScrollView>
+      <SectionList
+        stickySectionHeadersEnabled = 'True'
+        renderItem={({item, index, section}) => (
+          <LineItem
+            category={item.category}
+            store={item.store}
+            cost={item.cost}
+            time={item.timestamp}
+          />
+        )}
+        renderSectionHeader={({section: {title}}) => (
+          <Header
+            title={title}
+            total='infinity'
+          />
+        )}
+        sections={[
+          {title: this.state.dayLineItems.header, data: this.state.dayLineItems.items},
+          {title: this.state.weekLineItems.header, data: this.state.weekLineItems.items},
+          {title: this.state.monthLineItems.header, data: this.state.monthLineItems.items},
+        ]}
+        keyExtractor={(item, index) => item + index}
+      />
     );
   }
 }
