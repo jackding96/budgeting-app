@@ -14,14 +14,17 @@ export default class App extends React.Component {
     this.state = {
       dayLineItems: {
         header: 'Today',
+        total: 'nah',
         items: [],
       },
       weekLineItems: {
         header: 'This Week',
+        total: 'nah',
         items: [],
       },
       monthLineItems: {
         header: 'This Month',
+        total: 'nah',
         items: [],
       },
     }
@@ -29,6 +32,8 @@ export default class App extends React.Component {
     this.getStartOfDay = this.getStartOfDay.bind(this);
     this.getStartOfWeek = this.getStartOfWeek.bind(this);
     this.getStartOfMonth = this.getStartOfMonth.bind(this);
+
+    this.getSum = this.getSum.bind(this);
   }
   getStartOfDay() {
     let currTime = new Date();
@@ -48,6 +53,9 @@ export default class App extends React.Component {
     currTime.setMonth(currTime.getMonth() - 1);
     return currTime.getTime();
   }
+  getSum(items) {
+    return `$${items.length == 0 ? 0 : items.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2)}`;
+  }  
   componentWillMount() {
     const data = Object.values(dummyData).map(x => JSON.parse(x)).sort((a,b) => a.timestamp <= b.timestamp);
     const newState = {...this.state};
@@ -59,6 +67,11 @@ export default class App extends React.Component {
     newState.dayLineItems.items = data.filter(x => x.timestamp >= dayTime);
     newState.weekLineItems.items = data.filter(x => x.timestamp >= weekTime && x.timestamp < dayTime);
     newState.monthLineItems.items = data.filter(x => x.timestamp >= monthTime && x.timestamp < weekTime);
+
+    newState.dayLineItems.total = this.getSum(newState.dayLineItems.items);
+    newState.weekLineItems.total = this.getSum(newState.weekLineItems.items);
+    newState.monthLineItems.total = this.getSum(newState.monthLineItems.items);
+
     this.setState({newState});
   }
   render() {
@@ -73,16 +86,16 @@ export default class App extends React.Component {
             time={item.timestamp}
           />
         )}
-        renderSectionHeader={({section: {title}}) => (
+        renderSectionHeader={({section: {title, total}}) => (
           <Header
             title={title}
-            total='infinity'
+            total={total}
           />
         )}
         sections={[
-          {title: this.state.dayLineItems.header, data: this.state.dayLineItems.items},
-          {title: this.state.weekLineItems.header, data: this.state.weekLineItems.items},
-          {title: this.state.monthLineItems.header, data: this.state.monthLineItems.items},
+          {title: this.state.dayLineItems.header, total:this.state.dayLineItems.total, data: this.state.dayLineItems.items},
+          {title: this.state.weekLineItems.header, total:this.state.weekLineItems.total, data: this.state.weekLineItems.items},
+          {title: this.state.monthLineItems.header, total:this.state.monthLineItems.total, data: this.state.monthLineItems.items},
         ]}
         keyExtractor={(item, index) => item + index}
       />
