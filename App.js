@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, FlatList, Text, View } from 'react-native';
+import { ScrollView, Button, FlatList, Text, View } from 'react-native';
 
 import Header from './Header.js';
 import dummyData from './dummyData.js';
@@ -66,15 +66,21 @@ export default class App extends React.Component {
       <ScrollView 
         showsVerticalScrollIndicator='False'>
 
-          <LineItemsSection
-            data = {this.state.dayLineItems}
-          />
-          <LineItemsSection
-            data = {this.state.weekLineItems}
-          />
-          <LineItemsSection
-            data = {this.state.monthLineItems}
-          />                    
+        {/* <Button
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />         */}
+
+        <LineItemsSection
+          data = {this.state.dayLineItems}
+        />
+        <LineItemsSection
+          data = {this.state.weekLineItems}
+        />
+        <LineItemsSection
+          data = {this.state.monthLineItems}
+        />                    
 
       </ScrollView>
     );

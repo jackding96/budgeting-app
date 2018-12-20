@@ -26,7 +26,7 @@ export default StyleSheet.create({
   },
   listItemCategoryText: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: '500',
     fontFamily: 'System',
     opacity: 0.9
   },
