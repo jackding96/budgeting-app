@@ -5,6 +5,7 @@ import Header from './Header.js';
 import dummyData from './dummyData.js';
 import LineItem from './LineItem.js';
 import styles from './App.styles.js';
+import LineItemsSection from './LineItemsSection.js';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,15 +14,15 @@ export default class App extends React.Component {
     this.state = {
       dayLineItems: {
         header: 'Today',
-        data: [],
+        items: [],
       },
       weekLineItems: {
         header: 'This Week',
-        data: [],
+        items: [],
       },
       monthLineItems: {
         header: 'This Month',
-        data: [],
+        items: [],
       },
     }
 
@@ -55,71 +56,25 @@ export default class App extends React.Component {
     const weekTime = this.getStartOfWeek();
     const monthTime = this.getStartOfMonth();
 
-    newState.dayLineItems.data = data.filter(x => x.timestamp >= dayTime);
-    newState.weekLineItems.data = data.filter(x => x.timestamp >= weekTime && x.timestamp < dayTime);
-    newState.monthLineItems.data = data.filter(x => x.timestamp >= monthTime && x.timestamp < weekTime);
+    newState.dayLineItems.items = data.filter(x => x.timestamp >= dayTime);
+    newState.weekLineItems.items = data.filter(x => x.timestamp >= weekTime && x.timestamp < dayTime);
+    newState.monthLineItems.items = data.filter(x => x.timestamp >= monthTime && x.timestamp < weekTime);
     this.setState({newState});
   }
   render() {
-    const total = this.state.dayLineItems.data.length == 0 ? 0 : this.state.dayLineItems.data.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2);
     return (
       <ScrollView 
-        showsVerticalScrollIndicator='False'
-      >
-        {/* <View style={styles.container}> */}
-          <Header
-            title={this.state.dayLineItems.header}
-            total={total}
-          />
-          <FlatList
-            data={this.state.dayLineItems.data}
-            keyExtractor={(item) => item.id}
-            renderItem={({item}) => 
-              <LineItem
-                category={item.category}
-                store={item.store}
-                cost={item.cost}
-                time={item.timestamp}
-              />
-            }
-          />
-        {/* </View> */}
+        showsVerticalScrollIndicator='False'>
 
-        {/* <View style={styles.container}> */}
-          <Header
-            title={this.state.weekLineItems.header}
+          <LineItemsSection
+            data = {this.state.dayLineItems}
           />
-          <FlatList
-            data={this.state.weekLineItems.data}
-            keyExtractor={(item) => item.id}
-            renderItem={({item}) => 
-              <LineItem
-                category={item.category}
-                store={item.store}
-                cost={item.cost}
-                time={item.timestamp}
-              />
-            }
+          <LineItemsSection
+            data = {this.state.weekLineItems}
           />
-        {/* </View> */}
-
-        {/* <View style={styles.container}> */}
-          <Header
-            title={this.state.monthLineItems.header}
-          />
-          <FlatList
-            data={this.state.monthLineItems.data}
-            keyExtractor={(item) => item.id}
-            renderItem={({item}) => 
-              <LineItem
-                category={item.category}
-                store={item.store}
-                cost={item.cost}
-                time={item.timestamp}
-              />
-            }
-          />
-        {/* </View>         */}
+          <LineItemsSection
+            data = {this.state.monthLineItems}
+          />                    
 
       </ScrollView>
     );
