@@ -5,7 +5,6 @@ import Header from './Header.js';
 import dummyData from './dummyData.js';
 import LineItem from './LineItem.js';
 import styles from './App.styles.js';
-import LineItemsSection from './LineItemsSection.js';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -76,29 +75,38 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <SectionList
-        stickySectionHeadersEnabled = 'True'
-        renderItem={({item, index, section}) => (
-          <LineItem
-            category={item.category}
-            store={item.store}
-            cost={item.cost}
-            time={item.timestamp}
-          />
-        )}
-        renderSectionHeader={({section: {title, total}}) => (
-          <Header
-            title={title}
-            total={total}
-          />
-        )}
-        sections={[
-          {title: this.state.dayLineItems.header, total:this.state.dayLineItems.total, data: this.state.dayLineItems.items},
-          {title: this.state.weekLineItems.header, total:this.state.weekLineItems.total, data: this.state.weekLineItems.items},
-          {title: this.state.monthLineItems.header, total:this.state.monthLineItems.total, data: this.state.monthLineItems.items},
-        ]}
-        keyExtractor={(item, index) => item + index}
-      />
+      <View>
+        <SectionList
+          style = {styles.listContainer}
+          stickySectionHeadersEnabled = 'True'
+          renderItem={({item, index, section}) => (
+            <LineItem
+              category={item.category}
+              store={item.store}
+              cost={item.cost}
+              time={item.timestamp}
+            />
+          )}
+          renderSectionHeader={({section: {title, total}}) => (
+            <Header
+              title={title}
+              total={total}
+            />
+          )}
+          sections={[
+            {title: this.state.dayLineItems.header, total:this.state.dayLineItems.total, data: this.state.dayLineItems.items},
+            {title: this.state.weekLineItems.header, total:this.state.weekLineItems.total, data: this.state.weekLineItems.items},
+            {title: this.state.monthLineItems.header, total:this.state.monthLineItems.total, data: this.state.monthLineItems.items},
+          ]}
+          keyExtractor={(item, index) => item + index}
+        />
+
+        <Button
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+      </View>
     );
   }
 }

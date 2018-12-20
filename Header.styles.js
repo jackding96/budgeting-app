@@ -3,14 +3,14 @@ import SYSTEM_COLORS from './colors.styles.js';
 
 export default StyleSheet.create({
   header: {
-    paddingBottom: 12,
-    marginTop: 0,
+    paddingBottom: 10,
     paddingTop: 15,
     paddingLeft: 20,
     paddingRight: 20,    
-    marginBottom: 5,
-    // borderTopWidth: 1,
-    // borderTopColor: SYSTEM_COLORS.extralightgray
+    marginBottom: 15,
+    backgroundColor: SYSTEM_COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: SYSTEM_COLORS.extralightgray
   },  
   mainText: {
     fontSize: 17,
