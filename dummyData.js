@@ -13,11 +13,11 @@ function randomDate(start, end, startHour, endHour) {
 
 dict = {};
 
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 1000; i++) {
   id = '_' + Math.random().toString(36).substr(2, 9);
   dict[id] = JSON.stringify({
     id: id,
-    timestamp: randomDate(new Date('October 1, 2018 00:00:00'), new Date(), 0, 23),
+    timestamp: randomDate(new Date('August 1, 2018 00:00:00'), new Date(), 0, 23),
     category: categories[Math.floor(Math.random()*categories.length)],
     store: stores[Math.floor(Math.random()*stores.length)], 
     cost: (Math.random() * 20).toFixed(2)

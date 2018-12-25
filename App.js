@@ -11,21 +11,40 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      dayLineItems: {
-        header: 'Today',
-        total: 'nah',
-        items: [],
+      limit: {
+        amount: 100,
+        time_scope: 'week'
       },
-      weekLineItems: {
-        header: 'This Week',
-        total: 'nah',
-        items: [],
-      },
-      monthLineItems: {
-        header: 'This Month',
-        total: 'nah',
-        items: [],
-      },
+      line_items: [
+        {
+          header: 'Today',
+          items: [],
+        },
+        {
+          header: 'This Week',
+          items: [],
+        },
+        {
+          header: '2 Weeks',
+          items: [],
+        },
+        {
+          header: '3 Weeks',
+          items: [],
+        }, 
+        {
+          header: 'Month',
+          items: [],
+        }, 
+        {
+          header: '2 Months',
+          items: [],
+        },
+        {
+          header: '3 Months',
+          items: [],
+        },                                                
+      ]
     }
 
     this.getStartOfDay = this.getStartOfDay.bind(this);
@@ -56,7 +75,9 @@ export default class App extends React.Component {
     return `$${items.length == 0 ? 0 : items.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2)}`;
   }  
   componentWillMount() {
+    // Get data from dummyData, sort by timestamp
     const data = Object.values(dummyData).map(x => JSON.parse(x)).sort((a,b) => a.timestamp <= b.timestamp);
+
     const newState = {...this.state};
 
     const dayTime = this.getStartOfDay();
@@ -76,7 +97,12 @@ export default class App extends React.Component {
   render() {
     return (
       <View>
-        <SectionList
+
+        {/* Today, This Week, 2 Weeks, 3 Weeks, Month, 2 Months, 3 Months */}
+        <FlatList
+        />
+
+        {/* <SectionList
           style = {styles.listContainer}
           stickySectionHeadersEnabled = 'True'
           renderItem={({item, index, section}) => (
@@ -99,13 +125,8 @@ export default class App extends React.Component {
             {title: this.state.monthLineItems.header, total:this.state.monthLineItems.total, data: this.state.monthLineItems.items},
           ]}
           keyExtractor={(item, index) => item + index}
-        />
+        /> */}
 
-        <Button
-          title="Learn More"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
       </View>
     );
   }
