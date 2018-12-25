@@ -9,8 +9,8 @@ export default StyleSheet.create({
     paddingRight: 20,    
     marginBottom: 15,
     backgroundColor: SYSTEM_COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: SYSTEM_COLORS.extralightgray
+    // borderBottomWidth: 1,
+    // borderBottomColor: SYSTEM_COLORS.extralightgray
   },  
   mainText: {
     fontSize: 17,

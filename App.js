@@ -76,6 +76,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View>
+
         <SectionList
           style = {styles.listContainer}
           stickySectionHeadersEnabled = 'True'
@@ -99,12 +100,6 @@ export default class App extends React.Component {
             {title: this.state.monthLineItems.header, total:this.state.monthLineItems.total, data: this.state.monthLineItems.items},
           ]}
           keyExtractor={(item, index) => item + index}
-        />
-
-        <Button
-          title="Learn More"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
         />
       </View>
     );
