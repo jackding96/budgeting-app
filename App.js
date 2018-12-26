@@ -10,6 +10,15 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
 
+    // Binding functions
+    this.getDay = this.getDay.bind(this);
+    this.setDay = this.setDay.bind(this);
+    this.setMonth = this.setMonth.bind(this);
+    this.getSum = this.getSum.bind(this);
+    
+    // Timestamp variables
+    this.CURR_TIME = new Date();
+
     this.state = {
       limit: {
         amount: 100,
@@ -18,89 +27,89 @@ export default class App extends React.Component {
       line_items: [
         {
           header: 'Today',
+          lower_time_bound: this.setDay(this.CURR_TIME, 0),
+          upper_time_bound: this.CURR_TIME,
           items: [],
         },
         {
           header: 'This Week',
+          lower_time_bound: this.setDay(this.CURR_TIME, -7),
+          upper_time_bound: this.setDay(this.CURR_TIME, 0) - 1,          
           items: [],
         },
         {
           header: '2 Weeks',
+          lower_time_bound: this.setDay(this.CURR_TIME, -14),
+          upper_time_bound: this.setDay(this.CURR_TIME, -7) - 1,          
           items: [],
         },
         {
           header: '3 Weeks',
+          lower_time_bound: this.setDay(this.CURR_TIME, -21),
+          upper_time_bound: this.setDay(this.CURR_TIME, -14) - 1,          
           items: [],
         }, 
         {
           header: 'Month',
+          lower_time_bound: this.setMonth(this.CURR_TIME, -1),
+          upper_time_bound: this.setDay(this.CURR_TIME, -21) -1,          
           items: [],
         }, 
         {
           header: '2 Months',
+          lower_time_bound: this.setMonth(this.CURR_TIME, -2),
+          upper_time_bound: this.setMonth(this.CURR_TIME, -1) - 1,          
           items: [],
         },
         {
           header: '3 Months',
+          lower_time_bound: this.setMonth(this.CURR_TIME, -3),
+          upper_time_bound: this.setMonth(this.CURR_TIME, -2) - 1,          
           items: [],
-        },                                                
+        },                                            
       ]
     }
 
-    this.getStartOfDay = this.getStartOfDay.bind(this);
-    this.getStartOfWeek = this.getStartOfWeek.bind(this);
-    this.getStartOfMonth = this.getStartOfMonth.bind(this);
 
-    this.getSum = this.getSum.bind(this);
   }
-  getStartOfDay() {
-    let currTime = new Date();
-    currTime.setHours(0);
-    currTime.setMinutes(0);
-    currTime.setSeconds(0);
-    currTime.setMilliseconds(0);
+  getDay(currTime) {
+    let newTime = new Date(currTime);
+    newTime.setHours(0);
+    newTime.setMinutes(0);
+    newTime.setSeconds(0);
+    newTime.setMilliseconds(0);
     return currTime.getTime();
   }
-  getStartOfWeek() {
-    let currTime = new Date(this.getStartOfDay());
-    currTime.setDate(currTime.getDate() - 7);
-    return currTime.getTime();
+  setDay(currTime, increment) {
+    let newTime = new Date(this.getDay(currTime));
+    newTime.setDate(newTime.getDate() + increment);
+    return newTime.getTime();
   }
-  getStartOfMonth() {
-    let currTime = new Date(this.getStartOfDay());
-    currTime.setMonth(currTime.getMonth() - 1);
-    return currTime.getTime();
+  setMonth(currTime, increment) {
+    let newTime = new Date(this.getDay(currTime));
+    newTime.setMonth(newTime.getMonth() + increment);
+    return newTime.getTime();
   }
+
   getSum(items) {
     return `$${items.length == 0 ? 0 : items.map(x=>parseFloat(x.cost)).reduce((a,c) => { return a+c}).toFixed(2)}`;
   }  
   componentWillMount() {
-    // Get data from dummyData, sort by timestamp
     const data = Object.values(dummyData).map(x => JSON.parse(x)).sort((a,b) => a.timestamp <= b.timestamp);
-
     const newState = {...this.state};
 
-    const dayTime = this.getStartOfDay();
-    const weekTime = this.getStartOfWeek();
-    const monthTime = this.getStartOfMonth();
-
-    newState.dayLineItems.items = data.filter(x => x.timestamp >= dayTime);
-    newState.weekLineItems.items = data.filter(x => x.timestamp >= weekTime && x.timestamp < dayTime);
-    newState.monthLineItems.items = data.filter(x => x.timestamp >= monthTime && x.timestamp < weekTime);
-
-    newState.dayLineItems.total = this.getSum(newState.dayLineItems.items);
-    newState.weekLineItems.total = this.getSum(newState.weekLineItems.items);
-    newState.monthLineItems.total = this.getSum(newState.monthLineItems.items);
-
+     // Sort raw data into the state object
+    newState.line_items.forEach((line_item) => {
+      line_item.items = data.filter(x => x.timestamp >= line_item.lower_time_bound && x.timestamp <= line_item.upper_time_bound);
+    });
     this.setState({newState});
   }
+  
   render() {
     return (
       <View>
 
         {/* Today, This Week, 2 Weeks, 3 Weeks, Month, 2 Months, 3 Months */}
-        <FlatList
-        />
 
         {/* <SectionList
           style = {styles.listContainer}
