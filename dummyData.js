@@ -13,7 +13,7 @@ function randomDate(start, end, startHour, endHour) {
 
 dict = {};
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 500; i++) {
   id = '_' + Math.random().toString(36).substr(2, 9);
   dict[id] = JSON.stringify({
     id: id,
