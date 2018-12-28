@@ -14,15 +14,12 @@ export default class App extends React.Component {
     this.setDay = this.setDay.bind(this);
     this.setMonth = this.setMonth.bind(this);
     this.getSum = this.getSum.bind(this);
-    this.diffDays = this.diffDays.bind(this);
   
     // Timestamp variables
     this.CURR_TIME = new Date();
 
     this.state = {
-      limit_per_day: {
-        amount: 15,
-      },
+      limit_per_day: 15,
       line_items_sections: [
         {
           header: 'Today',
@@ -68,10 +65,6 @@ export default class App extends React.Component {
         },                                            
       ]
     }
-
-  }
-  diffDays(d1, d2) {
-    return Math.abs(Math.round((d1-d2) / (1000*60*60*24)));
   }
   getDay(currTime) {
     let newTime = new Date(currTime);
@@ -102,7 +95,7 @@ export default class App extends React.Component {
      // Sort raw data into the state object
     newState.line_items_sections.forEach((line_item) => {
       // line_item.items = data.filter(x => x.timestamp >= line_item.lower_time_bound && x.timestamp <= line_item.upper_time_bound);
-      line_item.items = data.filter(x => x.timestamp >= line_item.lower_time_bound && x.timestamp <= this.CURR_TIME);
+      line_item.items = data.filter(x => x.timestamp >= line_item.lower_time_bound);
     });
 
     this.setState({newState});
@@ -118,6 +111,9 @@ export default class App extends React.Component {
             <LineItemSection
               header = {item.header}
               items = {item.items}
+              curr_time = {this.CURR_TIME.getTime()}
+              lower_time_bound = {item.lower_time_bound}
+              limit_per_day = {this.state.limit_per_day}
             />
           )}
         />
